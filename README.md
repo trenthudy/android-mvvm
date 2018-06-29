@@ -1,0 +1,1 @@
+#### An Android starter project, showcasing the MVVM architecture pattern.
