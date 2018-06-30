@@ -1,4 +1,4 @@
-package io.hudepohl.mvvm
+package io.hudepohl.mvvm.app
 
 import dagger.Module
 import dagger.Provides

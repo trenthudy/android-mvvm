@@ -1,6 +1,7 @@
-package io.hudepohl.mvvm
+package io.hudepohl.mvvm.app
 
 import android.app.Application
+import io.hudepohl.mvvm.DaggerAppComponent
 
 class BaseApplication : Application() {
 

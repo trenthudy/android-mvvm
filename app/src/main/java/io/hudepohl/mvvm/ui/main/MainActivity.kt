@@ -1,9 +1,11 @@
-package io.hudepohl.mvvm
+package io.hudepohl.mvvm.ui.main
 
 import android.os.Bundle
 import android.support.design.widget.Snackbar
 import android.view.Menu
 import android.view.MenuItem
+import io.hudepohl.mvvm.R
+import io.hudepohl.mvvm.ui.BaseActivity
 import kotlinx.android.synthetic.main.activity_main.*
 
 class MainActivity : BaseActivity() {
