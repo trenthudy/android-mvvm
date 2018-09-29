@@ -4,7 +4,7 @@ import android.support.v7.app.AppCompatActivity
 import io.hudepohl.mvvm.app.AppComponent
 import io.hudepohl.mvvm.app.BaseApplication
 
-open class BaseActivity : AppCompatActivity() {
+abstract class BaseActivity : AppCompatActivity() {
 
     protected val appComponent: AppComponent
         get() = (application as BaseApplication).appComponent

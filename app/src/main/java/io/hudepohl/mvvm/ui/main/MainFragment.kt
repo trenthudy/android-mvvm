@@ -1,0 +1,10 @@
+package io.hudepohl.mvvm.ui.main
+
+import io.hudepohl.mvvm.ui.BaseFragment
+
+
+class MainFragment : BaseFragment() {
+    interface MainFragmentHost
+
+    private lateinit var viewModel
+}

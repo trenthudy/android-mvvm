@@ -23,6 +23,7 @@ android {
         enabled = true
     }
 }
+
 dependencies {
     //  libs directory
     implementation fileTree(dir: 'libs', include: ['*.jar'])
@@ -84,4 +85,3 @@ dependencies {
     androidTestImplementation "org.mockito:mockito-android:$mockitoVersion"
     androidTestImplementation "com.nhaarman:mockito-kotlin-kt1.1:$mockitoKotlinVersion"
 }
-
