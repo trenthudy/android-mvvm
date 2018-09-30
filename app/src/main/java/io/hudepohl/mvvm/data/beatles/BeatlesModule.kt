@@ -1,4 +1,4 @@
-package io.hudepohl.mvvm.data.repo
+package io.hudepohl.mvvm.data.beatles
 
 import dagger.Module
 import dagger.Provides
@@ -10,21 +10,21 @@ import javax.inject.Singleton
 
 
 @Module
-class RepoModule {
+class BeatlesModule {
 
     @Provides
     @Singleton
-    @RepoAPIBaseUrl
-    fun provideRepoAPIBaseUrl(): String = "https://api.github.com/"
+    @BeatlesAPIBaseUrl
+    fun provideBeatlesAPIBaseUrl(): String = "https://hudepohl.io/"
 
     @Provides
     @Singleton
-    fun provideRepoService(
-            @RepoAPIBaseUrl baseUrl: String,
+    fun provideBeatlesService(
+            @BeatlesAPIBaseUrl baseUrl: String,
             httpClient: OkHttpClient,
             converterFactory: Converter.Factory,
             callAdapterFactory: CallAdapter.Factory
-    ): RepoService {
+    ): BeatlesService {
 
         val retrofit =
                 Retrofit.Builder()
@@ -34,8 +34,8 @@ class RepoModule {
                         .addCallAdapterFactory(callAdapterFactory)
                         .build()
 
-        val repoApi = retrofit.create(RepoAPI::class.java)
+        val beatlesApi = retrofit.create(BeatlesAPI::class.java)
 
-        return RepoService(repoApi)
+        return BeatlesService(beatlesApi)
     }
 }
