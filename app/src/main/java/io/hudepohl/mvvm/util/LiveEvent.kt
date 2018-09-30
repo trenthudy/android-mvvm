@@ -1,4 +1,4 @@
-package io.hudepohl.mvvm.ui
+package io.hudepohl.mvvm.util
 
 import android.arch.lifecycle.LifecycleOwner
 import android.arch.lifecycle.MutableLiveData
