@@ -22,7 +22,7 @@ abstract class BaseViewModel(app: Application) : AndroidViewModel(app), Observab
 
     fun onResume() = if (initialized.compareAndSet(false, true)) setup() else {}
 
-    abstract fun setup()
+    protected abstract fun setup()
 
     protected fun getApp() = getApplication<BaseApplication>()
 
