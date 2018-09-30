@@ -85,3 +85,10 @@ dependencies {
     androidTestImplementation "org.mockito:mockito-android:$mockitoVersion"
     androidTestImplementation "com.nhaarman:mockito-kotlin-kt1.1:$mockitoKotlinVersion"
 }
+
+// Kotlin plugin to create 'open' classes via annotations, which is useful for testing.
+// More here: https://kotlinlang.org/docs/reference/compiler-plugins.html#all-open-compiler-plugin
+apply plugin: 'kotlin-allopen'
+allOpen {
+    annotation("io.hudepohl.mvvm.util.Mockable")
+}
