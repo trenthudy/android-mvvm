@@ -1,14 +1,26 @@
 package io.hudepohl.mvvm.app
 
 import android.app.Application
-import io.hudepohl.mvvm.DaggerAppComponent
+
 
 class BaseApplication : Application() {
 
-    val appComponent: AppComponent = DaggerAppComponent.create()
+    lateinit var appComponent: AppComponent
 
     override fun onCreate() {
         super.onCreate()
-        appComponent.inject(this)
+
+        DaggerAppComponent
+                .builder()
+                .androidModule(AndroidModule(this))
+                .build()
+                .also {
+                    appComponent = it
+                    appComponent.inject(this)
+                }
+
+        setup()
     }
+
+    private fun setup() {}
 }
