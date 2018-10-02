@@ -10,7 +10,7 @@ import javax.inject.Inject
 
 
 abstract class BaseActivity<ViewModelType: BaseViewModel>(
-        private val autoInitViewModel: Boolean = true
+    private val autoInitViewModel: Boolean = true
 ) : AppCompatActivity() {
 
     @Inject lateinit var viewModelFactory: ViewModelProvider.Factory

@@ -68,6 +68,7 @@ dependencies {
     // rxjava 2
     implementation "io.reactivex.rxjava2:rxandroid:$rxAndroidVersion"
     implementation "io.reactivex.rxjava2:rxjava:$rxJavaVersion"
+    implementation "io.reactivex.rxjava2:rxkotlin:$rxKotlinVersion"
 
     // test
     testImplementation "junit:junit:$jUnitVersion"

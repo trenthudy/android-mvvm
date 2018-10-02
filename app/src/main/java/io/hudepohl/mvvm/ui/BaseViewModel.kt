@@ -38,10 +38,28 @@ abstract class BaseViewModel(app: Application) : AndroidViewModel(app), Observab
     fun notifyPropertyChanged(fieldId: Int) = synchronized(this) { registry.notifyCallbacks(this, fieldId, null) }
 
     protected fun <T> Single<T>.listenOnViewModel(
-            onSuccess: (T) -> Unit
+        onSuccess: (T) -> Unit
     ): Disposable = this.subscribe(onSuccess).also { disposables.add(it) }
     protected fun <T> Single<T>.listenOnViewModel(
-            onSuccess: (T) -> Unit,
-            onError: (Throwable) -> Unit
+        onSuccess: (T) -> Unit,
+        onError: (Throwable) -> Unit
     ): Disposable = this.subscribe(onSuccess, onError).also { disposables.add(it) }
+    protected fun <T> io.reactivex.Observable<T>.listenOnViewModel(
+        onNext: (T) -> Unit
+    ): Disposable = this.subscribe(onNext).also { disposables.add(it) }
+    protected fun <T> io.reactivex.Observable<T>.listenOnViewModel(
+        onNext: (T) -> Unit,
+        onError: (Throwable) -> Unit
+    ): Disposable = this.subscribe(onNext, onError).also { disposables.add(it) }
+    protected fun <T> io.reactivex.Observable<T>.listenOnViewModel(
+        onNext: (T) -> Unit,
+        onError: (Throwable) -> Unit,
+        onComplete: () -> Unit
+    ): Disposable = this.subscribe(onNext, onError, onComplete).also { disposables.add(it) }
+    protected fun <T> io.reactivex.Observable<T>.listenOnViewModel(
+        onNext: (T) -> Unit,
+        onError: (Throwable) -> Unit,
+        onComplete: () -> Unit,
+        onSubscribe: (Disposable) -> Unit
+    ): Disposable = this.subscribe(onNext, onError, onComplete, onSubscribe).also { disposables.add(it) }
 }

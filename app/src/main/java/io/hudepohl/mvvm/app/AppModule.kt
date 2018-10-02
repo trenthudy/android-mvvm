@@ -6,6 +6,7 @@ import android.os.Build
 import dagger.Module
 import dagger.Provides
 import io.hudepohl.mvvm.BuildConfig
+import io.hudepohl.mvvm.ui.main.MainActivityTab
 import io.hudepohl.mvvm.util.NetworkAvailabilityObserver
 import javax.inject.Singleton
 
@@ -32,4 +33,8 @@ class AppModule {
             app: Application,
             connectivityManager: ConnectivityManager
     ): NetworkAvailabilityObserver = NetworkAvailabilityObserver(app, connectivityManager)
+
+    @Provides
+    @Singleton
+    fun provideDefaultMainActivityTab(): MainActivityTab = MainActivityTab.BEATLES
 }

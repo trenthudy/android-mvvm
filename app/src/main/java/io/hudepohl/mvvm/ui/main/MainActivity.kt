@@ -1,26 +1,48 @@
 package io.hudepohl.mvvm.ui.main
 
+import android.arch.lifecycle.Observer
+import android.databinding.DataBindingUtil
 import android.os.Bundle
 import android.support.design.widget.Snackbar
 import android.view.Menu
 import android.view.MenuItem
 import io.hudepohl.mvvm.R
 import io.hudepohl.mvvm.ui.BaseActivity
-import kotlinx.android.synthetic.main.activity_main.*
-
+import javax.inject.Inject
 
 class MainActivity : BaseActivity<MainViewModel>() {
+
+    @Inject
+    lateinit var defaultTab: MainActivityTab
+    private lateinit var binding: MainActivityBinding
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
 
-        setContentView(R.layout.activity_main)
-        setSupportActionBar(toolbar)
+        binding = DataBindingUtil.setContentView(this, R.layout.activity_main)
+        binding.vm = viewModel
+        setSupportActionBar(binding.toolbar)
+        binding.navigation.apply {
 
-        fab.setOnClickListener { view ->
-            Snackbar.make(view, "Replace with your own action", Snackbar.LENGTH_LONG)
-                    .setAction("Action", null).show()
+            setOnNavigationItemSelectedListener {
+                binding.message.text = when (it.itemId) {
+                    MainActivityTab.BEATLES.menuItemId -> "bealtes"
+                    R.id.navigation_item_github -> "github"
+                    R.id.navigation_item_settings -> "settings"
+                    else -> "idk"
+                }
+                true
+            }
+
+            selectedItemId = defaultTab.menuItemId
         }
+
+        viewModel.errorMessages.observe(this, Observer { errorMessage ->
+            errorMessage?.let {
+
+                Snackbar.make(binding.root, it, Snackbar.LENGTH_LONG).show()
+            }
+        })
     }
 
     override fun onCreateOptionsMenu(menu: Menu): Boolean {

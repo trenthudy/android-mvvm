@@ -18,6 +18,7 @@ buildscript {
         retrofitVersion = '2.4.0'
         rxAndroidVersion = '2.0.2'
         rxJavaVersion = '2.1.16'
+        rxKotlinVersion = '2.3.0'
 
         // test
         androidTestSupportVersion = '1.0.1'
