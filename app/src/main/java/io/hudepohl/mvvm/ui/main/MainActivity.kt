@@ -5,6 +5,7 @@ import android.databinding.DataBindingUtil
 import android.os.Bundle
 import android.support.annotation.IdRes
 import android.support.design.widget.Snackbar
+import android.view.LayoutInflater
 import android.view.Menu
 import android.view.MenuItem
 import io.hudepohl.mvvm.R
@@ -66,10 +67,17 @@ class MainActivity : BaseActivity<MainViewModel>() {
 
     private fun updateFragmentContainer(tab: MainActivityTab) {
 
-        supportFragmentManager
-            .beginTransaction()
-            .replace(R.id.main_fragment_container, tab.instance.invoke())
-            .commit()
+        binding.mainFragmentContainer.also { fragmentContainer ->
+            fragmentContainer.removeAllViews()
+
+
+            LayoutInflater
+                .from(this)
+                .inflate(
+                    R.layout.content_beatle_album,
+                    fragmentContainer,
+                    true)
+        }
 
         binding.toolbar.title = getString(tab.title)
     }

@@ -41,6 +41,10 @@ class BeatleAlbumFragment : BaseFragment() {
         super.onResume()
     }
 
+    override fun onPause() {
+        super.onPause()
+    }
+
     private inner class AlbumAdapter : RecyclerViewAdapter<BeatleAlbum, AlbumViewHolder>() {
 
         override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): AlbumViewHolder {
