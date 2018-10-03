@@ -1,0 +1,61 @@
+<?xml version="1.0" encoding="utf-8"?>
+<layout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools">
+
+    <data class="io.hudepohl.mvvm.ui.main.tabs.beatles.BeatleAlbumItemBinding">
+
+        <variable
+            name="album"
+            type="io.hudepohl.mvvm.data.beatles.model.BeatleAlbum" />
+
+    </data>
+
+    <android.support.constraint.ConstraintLayout
+        android:id="@+id/album_clickable_layout"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content">
+
+        <ImageView
+            android:id="@+id/album_image"
+            android:layout_width="60dp"
+            android:layout_height="60dp"
+            android:layout_margin="8dp"
+            app:layout_constraintTop_toTopOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintBottom_toBottomOf="parent" />
+
+        <TextView
+            android:id="@+id/album_name"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="12dp"
+            android:layout_marginStart="8dp"
+            app:layout_constraintTop_toTopOf="parent"
+            app:layout_constraintStart_toEndOf="@+id/album_image"
+            app:layout_constraintEnd_toEndOf="parent"
+            android:textSize="16sp"
+            android:textColor="@android:color/black"
+            style="@style/TextAppearance.AppCompat.Body2"
+            android:maxLines="1"
+            android:ellipsize="end"
+            android:text="@{album.name}"
+            tools:text="Let It Be" />
+
+        <TextView
+            android:id="@+id/album_release_date"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="8dp"
+            app:layout_constraintTop_toBottomOf="@+id/album_name"
+            app:layout_constraintStart_toEndOf="@+id/album_image"
+            android:textSize="14sp"
+            android:textColor="@android:color/darker_gray"
+            style="@style/Base.TextAppearance.AppCompat.Body1"
+            android:text="@{album.releaseDate}"
+            tools:text="1970" />
+
+    </android.support.constraint.ConstraintLayout>
+
+
+</layout>

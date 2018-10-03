@@ -1,10 +1,10 @@
-package io.hudepohl.mvvm.ui.main
+package io.hudepohl.mvvm.ui.main.tabs
 
 import android.support.annotation.IdRes
 import android.support.annotation.StringRes
 import io.hudepohl.mvvm.R
 import io.hudepohl.mvvm.ui.BaseFragment
-import io.hudepohl.mvvm.ui.main.beatles.BeatleAlbumFragment
+import io.hudepohl.mvvm.ui.main.tabs.beatles.BeatleAlbumFragment
 
 enum class MainActivityTab(
     @IdRes val menuItemId: Int,

@@ -1,7 +1,9 @@
-package io.hudepohl.mvvm.ui.main.beatles
+package io.hudepohl.mvvm.ui.main.tabs.beatles
 
 import android.app.Application
 import android.arch.lifecycle.MutableLiveData
+import android.databinding.Bindable
+import io.hudepohl.mvvm.BR
 import io.hudepohl.mvvm.R
 import io.hudepohl.mvvm.data.beatles.BeatlesService
 import io.hudepohl.mvvm.data.beatles.model.BeatleAlbum
@@ -10,14 +12,15 @@ import io.hudepohl.mvvm.util.NetworkAvailability
 import io.hudepohl.mvvm.util.NetworkAvailabilityObserver
 import io.reactivex.android.schedulers.AndroidSchedulers
 import io.reactivex.schedulers.Schedulers
+import javax.inject.Inject
 
-class BeatleAlbumViewModel(
+class BeatleAlbumViewModel @Inject constructor(
     app: Application,
     private val beatlesService: BeatlesService,
     private val network: NetworkAvailabilityObserver
 ) : BaseViewModel(app) {
 
-    val albums = MutableLiveData<List<BeatleAlbum>>()
+    val albumData = MutableLiveData<List<BeatleAlbum>>()
 
     override fun setup() {
 
@@ -28,13 +31,10 @@ class BeatleAlbumViewModel(
             .listenOnViewModel { networkUpdate ->
                 when (networkUpdate) {
                     NetworkAvailability.AVAILABLE -> {
-                        if (albums.value == null) retrieveBeatleAlbums()
+                        if (albumData.value == null) retrieveBeatleAlbums()
                     }
-                    NetworkAvailability.NOT_AVAILABLE -> {
+                    else -> {
                         errorMessages.value = getApp().getString(R.string.error_offline)
-                    }
-                    null -> {
-
                     }
                 }
             }
@@ -48,10 +48,21 @@ class BeatleAlbumViewModel(
             .observeOn(AndroidSchedulers.mainThread())
             .listenOnViewModel(
                 { albumList ->
-                    albums.value = albumList
+                    updateAlbumData(albumList)
                 },
                 { _ ->
                     errorMessages.value = getApp().getString(R.string.error_generic)
                 })
+    }
+
+    private fun updateAlbumData(albums: List<BeatleAlbum>) {
+        albumData.value = albums
+        notifyPropertyChanged(BR.albums)
+    }
+
+    @Bindable
+    fun getAlbums() = when (albumData.value) {
+        null -> emptyList()
+        else -> albumData.value
     }
 }

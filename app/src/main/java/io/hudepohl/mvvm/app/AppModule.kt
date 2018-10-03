@@ -6,10 +6,9 @@ import android.os.Build
 import dagger.Module
 import dagger.Provides
 import io.hudepohl.mvvm.BuildConfig
-import io.hudepohl.mvvm.ui.main.MainActivityTab
+import io.hudepohl.mvvm.ui.main.tabs.MainActivityTab
 import io.hudepohl.mvvm.util.NetworkAvailabilityObserver
 import javax.inject.Singleton
-
 
 @Module
 class AppModule {

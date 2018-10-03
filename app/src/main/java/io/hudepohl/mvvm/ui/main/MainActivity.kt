@@ -3,11 +3,13 @@ package io.hudepohl.mvvm.ui.main
 import android.arch.lifecycle.Observer
 import android.databinding.DataBindingUtil
 import android.os.Bundle
+import android.support.annotation.IdRes
 import android.support.design.widget.Snackbar
 import android.view.Menu
 import android.view.MenuItem
 import io.hudepohl.mvvm.R
 import io.hudepohl.mvvm.ui.BaseActivity
+import io.hudepohl.mvvm.ui.main.tabs.MainActivityTab
 import javax.inject.Inject
 
 class MainActivity : BaseActivity<MainViewModel>() {
@@ -25,17 +27,12 @@ class MainActivity : BaseActivity<MainViewModel>() {
         binding.navigation.apply {
 
             setOnNavigationItemSelectedListener {
-                binding.message.text = when (it.itemId) {
-                    MainActivityTab.BEATLES.menuItemId -> "bealtes"
-                    R.id.navigation_item_github -> "github"
-                    R.id.navigation_item_settings -> "settings"
-                    else -> "idk"
-                }
+                onTabChange(it.itemId)
                 true
             }
-
-            selectedItemId = defaultTab.menuItemId
         }
+
+        onTabChange(defaultTab.menuItemId)
 
         viewModel.errorMessages.observe(this, Observer { errorMessage ->
             errorMessage?.let {
@@ -55,5 +52,25 @@ class MainActivity : BaseActivity<MainViewModel>() {
             R.id.action_settings -> true
             else -> super.onOptionsItemSelected(item)
         }
+    }
+
+    private fun onTabChange(@IdRes tabId: Int) {
+        // TODO
+//        val newTab = when (tabId) {
+//            R.id.navigation_item_beatles -> MainActivityTab.BEATLES
+//            else -> MainActivityTab.BEATLES
+//        }
+
+        updateFragmentContainer(MainActivityTab.BEATLES)
+    }
+
+    private fun updateFragmentContainer(tab: MainActivityTab) {
+
+        supportFragmentManager
+            .beginTransaction()
+            .replace(R.id.main_fragment_container, tab.instance.invoke())
+            .commit()
+
+        binding.toolbar.title = getString(tab.title)
     }
 }
