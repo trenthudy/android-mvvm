@@ -86,6 +86,6 @@ class MainActivity : BaseActivity<MainViewModel>() {
                 binding.mainFragmentContainer,
                 true)
 
-        binding.toolbar.title = getString(tab.title)
+        supportActionBar?.title = getString(tab.title)
     }
 }
