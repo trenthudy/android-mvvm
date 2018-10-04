@@ -56,28 +56,35 @@ class MainActivity : BaseActivity<MainViewModel>() {
     }
 
     private fun onTabChange(@IdRes tabId: Int) {
-        // TODO
-//        val newTab = when (tabId) {
-//            R.id.navigation_item_beatles -> MainActivityTab.BEATLES
-//            else -> MainActivityTab.BEATLES
-//        }
+        val newTab = when (tabId) {
+            R.id.navigation_item_beatles -> MainActivityTab.BEATLES
+            R.id.navigation_item_github -> MainActivityTab.GITHUB
+            else -> throw RuntimeException("Could not find MainActivityTab for selected tabId")
+        }
 
-        updateFragmentContainer(MainActivityTab.BEATLES)
+        updateFragmentContainer(newTab)
     }
 
     private fun updateFragmentContainer(tab: MainActivityTab) {
 
-        binding.mainFragmentContainer.also { fragmentContainer ->
-            fragmentContainer.removeAllViews()
+        supportFragmentManager
+            .fragments
+            .forEach {
 
+                supportFragmentManager
+                    .beginTransaction()
+                    .remove(it)
+                    .commit()
+            }
 
-            LayoutInflater
-                .from(this)
-                .inflate(
-                    R.layout.content_beatle_album,
-                    fragmentContainer,
-                    true)
-        }
+        binding.mainFragmentContainer.removeAllViews()
+
+        LayoutInflater
+            .from(this)
+            .inflate(
+                tab.layout,
+                binding.mainFragmentContainer,
+                true)
 
         binding.toolbar.title = getString(tab.title)
     }
