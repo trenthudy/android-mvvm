@@ -52,6 +52,11 @@ abstract class BaseActivity<ViewModelType: BaseViewModel>(
         })
     }
 
-    internal fun <VM: BaseViewModel> getViewModel(viewModelClass: Class<VM>) =
-            ViewModelProviders.of(this, viewModelFactory).get(viewModelClass)
+    internal fun <VM: BaseViewModel> getViewModel(
+        viewModelClass: Class<VM>,
+        fragmentScope: BaseFragment? = null
+    ): VM = when (fragmentScope) {
+        null -> ViewModelProviders.of(this, viewModelFactory)
+        else -> ViewModelProviders.of(fragmentScope, viewModelFactory)
+    }.get(viewModelClass)
 }

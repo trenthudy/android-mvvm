@@ -1,7 +1,9 @@
 package io.hudepohl.mvvm.ui.main.tabs.beatles
 
+import android.arch.lifecycle.Observer
 import android.databinding.DataBindingUtil
 import android.os.Bundle
+import android.support.design.widget.Snackbar
 import android.support.v7.widget.LinearLayoutManager
 import android.support.v7.widget.RecyclerView
 import android.view.LayoutInflater
@@ -23,7 +25,7 @@ class BeatleAlbumFragment : BaseFragment() {
         savedInstanceState: Bundle?
     ): View? {
 
-        viewModel = getViewModel(BeatleAlbumViewModel::class)
+        viewModel = getViewModel(BeatleAlbumViewModel::class, ViewModelScope.FRAGMENT)
 
         binding = DataBindingUtil.inflate(inflater, R.layout.fragment_beatle_album, container, false)
         binding.vm = viewModel
@@ -33,6 +35,8 @@ class BeatleAlbumFragment : BaseFragment() {
         }
         binding.executePendingBindings()
 
+        viewModel.errorMessages.observe(this, Observer { error -> showError(error) })
+
         return binding.root
     }
 
@@ -41,8 +45,13 @@ class BeatleAlbumFragment : BaseFragment() {
         super.onResume()
     }
 
-    override fun onPause() {
-        super.onPause()
+    private fun showError(message: String?) {
+
+        Snackbar.make(
+            binding.root,
+            message ?: getString(R.string.error_generic),
+            Snackbar.LENGTH_LONG)
+            .show()
     }
 
     private inner class AlbumAdapter : RecyclerViewAdapter<BeatleAlbum, AlbumViewHolder>() {
