@@ -20,7 +20,13 @@ class BeatleAlbumViewModel @Inject constructor(
     private val network: NetworkAvailabilityObserver
 ) : BaseViewModel(app) {
 
-    val albumData = MutableLiveData<List<BeatleAlbum>>()
+    private val albumData = MutableLiveData<List<BeatleAlbum>>()
+    private val selectedAlbum = MutableLiveData<BeatleAlbum>()
+
+    sealed class MobileNavEvent {
+        class AlbumClick
+    }
+    val mobileNavEvents = MutableLiveData<MobileNavEvent>()
 
     override fun setup() {
 
@@ -60,9 +66,23 @@ class BeatleAlbumViewModel @Inject constructor(
         notifyPropertyChanged(BR.albums)
     }
 
+    fun albumClickMobile(album: BeatleAlbum) {
+
+    }
+
+    fun albumClickTablet(album: BeatleAlbum) {
+
+    }
+
     @Bindable
     fun getAlbums() = when (albumData.value) {
         null -> emptyList()
         else -> albumData.value
     }
+
+    @Bindable
+    fun getSelectedAlbum() = selectedAlbum.value
+
+    @Bindable
+    fun isAlbumSelected(): Boolean = selectedAlbum.value != null
 }

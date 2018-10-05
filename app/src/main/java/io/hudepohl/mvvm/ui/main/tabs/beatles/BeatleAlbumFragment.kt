@@ -35,7 +35,17 @@ class BeatleAlbumFragment : BaseFragment() {
         }
         binding.executePendingBindings()
 
-        viewModel.errorMessages.observe(this, Observer { error -> showError(error) })
+        viewModel.apply {
+
+            errorMessages.observe(this@BeatleAlbumFragment, Observer { error -> showError(error) })
+            mobileNavEvents.observe(this@BeatleAlbumFragment, Observer { event ->
+                when (event) {
+                    is BeatleAlbumViewModel.MobileNavEvent -> {
+                        TODO(" ")
+                    }
+                }
+            })
+        }
 
         return binding.root
     }
