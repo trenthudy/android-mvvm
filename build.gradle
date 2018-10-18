@@ -8,11 +8,13 @@ buildscript {
         supportVersion = '27.1.1'
 
         // kotlin
-        kotlinVersion = '1.2.61'
+        kotlinVersion = '1.2.71'
 
         // third party
+        autoService = '1.0-rc4'
         daggerVersion = '2.16'
         glideVersion = '4.6.1'
+        kotlinPoetVersion = '1.0.0-RC1'
         moshiVersion = '1.6.0'
         okHttpVersion = '3.9.1'
         retrofitVersion = '2.4.0'
@@ -34,7 +36,7 @@ buildscript {
         jcenter()
     }
     dependencies {
-        classpath 'com.android.tools.build:gradle:3.2.0'
+        classpath 'com.android.tools.build:gradle:3.2.1'
         classpath "org.jetbrains.kotlin:kotlin-gradle-plugin:$kotlinVersion"
         classpath "org.jetbrains.kotlin:kotlin-allopen:$kotlinVersion"
     }

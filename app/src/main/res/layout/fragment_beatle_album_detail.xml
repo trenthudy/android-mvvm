@@ -26,13 +26,11 @@
             android:layout_margin="16dp"
             android:gravity="center"
             android:text="@string/label_select_album"
-            android:visibility="@{!vm.albumSelected}"
             tools:visibility="gone" />
 
         <android.support.constraint.ConstraintLayout
             android:layout_width="match_parent"
             android:layout_height="match_parent"
-            android:visibility="@{vm.albumSelected}"
             tools:visibility="visible">
 
             <ImageView
@@ -55,7 +53,6 @@
                 android:ellipsize="end"
                 android:textSize="20sp"
                 style="@style/TextAppearance.AppCompat.Body2"
-                android:text="@{vm.}"
                 tools:text="Let It Be" />
 
         </android.support.constraint.ConstraintLayout>
